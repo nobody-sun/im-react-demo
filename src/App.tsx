@@ -86,7 +86,7 @@ export default class App extends Component<Props, State> {
                     avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
                     payload: {
                         content:
-                            '哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好',
+                            '哈哈哈哈哈1哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好',
                     },
                     time: 123,
                     type: msgType.MSG_TEXT,
