@@ -1,0 +1,22 @@
+.component_LayItem {
+    margin: 0 6px 10px;
+    .layitem {
+        &_common_warp {
+            background-color: rgb(44, 44, 44);
+            color: #fff;
+            margin: 0 6px;
+            padding: 6px;
+            border-radius: 4px;
+            max-width: 70%;
+            &_out {
+                color: #000;
+                background-color: rgb(89, 177, 105);
+            }
+        }
+        &_system_warp {
+            width: 100%;
+            padding: 6px;
+            text-align: center;
+        }
+    }
+}
