@@ -35,15 +35,20 @@ const ChatList: FC<IChatListProps> = (props) => {
      * 初始化时将scroll触底
      */
     const initScroll = () => {
-        if (chatListRef && chatListRef.current) {
-            const { clientHeight, scrollHeight } = chatListRef.current
-            chatListRef.current.scrollTop = scrollHeight - clientHeight
-        }
+        setTimeout(() => {
+            if (chatListRef && chatListRef.current) {
+                const { clientHeight, scrollHeight } = chatListRef.current
+                chatListRef.current.scrollTop = scrollHeight - clientHeight
+            }
+        }, 0)
     }
     useEffect(() => {
-        onReachTop && onReachTop()
-        initScroll()
-    }, [])
+        const asyncInit = async () => {
+            onReachTop && (await onReachTop())
+            initScroll()
+        }
+        asyncInit()
+    }, [onReachTop])
     return (
         <div
             className="component_ChatList"
