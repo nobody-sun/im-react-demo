@@ -1,3 +1,6 @@
+/**
+ * 头像
+ */
 import { FC } from 'react'
 import './index.scss'
 interface IProps {

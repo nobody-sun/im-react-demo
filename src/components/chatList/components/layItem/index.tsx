@@ -20,11 +20,15 @@ const LayItem: React.FC<IProps> = (props) => {
     const { avatar, isMsgIn, type } = props.dataItem
     // 是否是系统消息
     const isSystemMsg = type === msgType.MSG_SYSTEM
-    // 数据处理层函数,与视图层做抽离
+    // 数据处理层函数,与消息体视图组件做分离
     const dataItemHandler = (): IHandledMessageItem => {
         return { tag: 'test', ...props.dataItem }
     }
-
+    /**
+     * warpRender
+     * @param dom
+     * @returns warp
+     */
     const warpRender = (dom: ReactNode) => {
         let warp
         if (isSystemMsg) {
@@ -43,7 +47,7 @@ const LayItem: React.FC<IProps> = (props) => {
         return warp
     }
     /**
-     * 函数
+     * layItemRender
      * @returns comp
      */
     const layItemRender = () => {
@@ -65,6 +69,7 @@ const LayItem: React.FC<IProps> = (props) => {
         }
         return comp ? comp : null
     }
+
     return (
         <div
             className={classNames('component_LayItem flex', {

@@ -6,7 +6,7 @@ interface Iprops {}
 const SystemRevoke: FC<Iprops> = () => {
     const handler = () => {
         // 触发重新编辑
-        console.log('重新编辑')
+        alert('重新编辑')
     }
     return (
         <div className="components_SystemRevoke">

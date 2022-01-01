@@ -1,4 +1,19 @@
 .component_ChatList {
-    border: 1px solid #ddd;
-    height: 800px;
+    overflow-y: scroll;
+    .flex {
+        display: flex;
+    }
+    .f-jc-c {
+        justify-content: center;
+    }
+    .f-ai-c {
+        align-items: center;
+    }
+    .f-c {
+        justify-content: center;
+        align-items: center;
+    }
+    .f-fd-rr {
+        flex-direction: row-reverse;
+    }
 }

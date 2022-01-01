@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import ChatList from './components/chatList'
-import { customType, IMessageItem, msgType } from './components/chatList/vo'
-
+import { IMessageItem } from './components/chatList/vo'
+import { mockDataList, getRandomMsgItem } from './mockData'
 interface Props {}
 interface State {
     data: Array<IMessageItem>
+    loading: boolean
 }
 
 export default class App extends Component<Props, State> {
@@ -12,92 +13,53 @@ export default class App extends Component<Props, State> {
         super(props)
         this.state = {
             // mock data
-            data: [
-                {
-                    msgKey: 'to2_from_1_hash4',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: false,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/26382609_MTYzMzQzNTc2MzQ0MA==637_563x563.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: { content: '你好' },
-                    time: 123,
-                    type: msgType.MSG_TEXT,
-                    isRevoke: false,
-                },
-                {
-                    msgKey: 'to1_from_2_hash3',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: true,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: { content: '123' },
-                    time: 123,
-                    type: msgType.MSG_TEXT,
-                    isRevoke: false,
-                },
-                {
-                    msgKey: 'to1_from_2_hash9',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: true,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: {
-                        content:
-                            'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzNzYwOTg1ODA3MQ==637_1200x1200.jpg?imageView2/1/w/562/h/720/format/webp',
-                    },
-                    time: 123,
-                    type: msgType.MSG_IMAGE,
-                    isRevoke: false,
-                },
-                {
-                    msgKey: 'to1_from_2_hash10',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: true,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: {
-                        customType: customType.revokeMsg,
-                        content:
-                            'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzNzYwOTg1ODA3MQ==637_1200x1200.jpg?imageView2/1/w/562/h/720/format/webp',
-                    },
-                    time: 123,
-                    type: msgType.MSG_SYSTEM,
-                    isRevoke: false,
-                },
-                {
-                    msgKey: 'to1_from_2_hash11',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: true,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: {
-                        customType: customType.commonSystem,
-                        content: 'toUser邀请fromUser加入群聊',
-                    },
-                    time: 123,
-                    type: msgType.MSG_SYSTEM,
-                    isRevoke: false,
-                },
-                {
-                    msgKey: 'to1_from_2_hash14',
-                    to: 'toUser',
-                    from: 'fromUser',
-                    isMsgIn: true,
-                    avatar: 'https://cdn.wanwudezhi.com/mall-portal/image/17790129_MTYzOTEyMjAyMDY0OQ==420_750x750.jpg?imageView2/1/w/400/h/400/format/webp',
-                    payload: {
-                        content:
-                            '哈哈哈哈哈1哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好',
-                    },
-                    time: 123,
-                    type: msgType.MSG_TEXT,
-                    isRevoke: false,
-                },
-            ],
+            data: JSON.parse(JSON.stringify(mockDataList)),
+            loading: false,
         }
     }
-
+    // mock 加载数据
+    private pushMockData = () => {
+        const mockArr: Array<IMessageItem> = []
+        for (let i = 0; i < 10; i++) {
+            mockArr.push(getRandomMsgItem(i))
+        }
+        this.setState({
+            data: [...mockArr, ...this.state.data],
+        })
+    }
+    private onReachTop = () => {
+        this.setState({
+            loading: true,
+        })
+        // 简单mock一下上拉加载数据
+        return new Promise((resolve: (value: boolean) => void, reject) => {
+            setTimeout(() => {
+                try {
+                    this.pushMockData()
+                    this.setState(
+                        {
+                            loading: false,
+                        },
+                        () => resolve(true),
+                    )
+                } catch (error) {
+                    reject(error)
+                }
+            }, 400)
+        })
+    }
     render() {
-        const { data } = this.state
-        return <ChatList data={data}></ChatList>
+        const { data, loading } = this.state
+        return (
+            <ChatList
+                data={data}
+                height="800px"
+                onReachBottom={() => {
+                    console.log('onReachBottom')
+                }}
+                onReachTop={this.onReachTop}
+                loading={loading}
+            ></ChatList>
+        )
     }
 }
