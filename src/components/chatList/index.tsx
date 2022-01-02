@@ -8,11 +8,13 @@ export interface IChatListProps {
     height?: string
     onReachBottom?: Function // 触底事件
     onReachTop?: () => Promise<boolean> // 触顶事件
-    loading?: boolean
+    reachTopImmidiate?: boolean // 默认是否触发一次onReachTop
+    hasMore?: boolean // 数据是否还有剩余未拉取完成
+    loading?: boolean // 顶部loading
 }
 const ChatList: FC<IChatListProps> = (props) => {
     const chatListRef = useRef<HTMLDivElement | null>(null)
-    const { data, height, onReachBottom, onReachTop, loading } = props
+    const { data, height, onReachBottom, onReachTop, loading, reachTopImmidiate } = props
 
     const onScroll = async (e: SyntheticEvent) => {
         if (chatListRef.current) {
@@ -44,11 +46,11 @@ const ChatList: FC<IChatListProps> = (props) => {
     }
     useEffect(() => {
         const asyncInit = async () => {
-            onReachTop && (await onReachTop())
+            reachTopImmidiate && onReachTop && (await onReachTop())
             initScroll()
         }
         asyncInit()
-    }, [onReachTop])
+    }, [onReachTop, reachTopImmidiate])
     return (
         <div
             className="component_ChatList"
@@ -77,5 +79,7 @@ const ChatList: FC<IChatListProps> = (props) => {
 ChatList.defaultProps = {
     height: '100%',
     loading: false,
+    reachTopImmidiate: true,
+    hasMore: true,
 }
 export default ChatList

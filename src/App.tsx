@@ -53,11 +53,13 @@ export default class App extends Component<Props, State> {
         return (
             <ChatList
                 data={data}
-                height="800px"
+                height="400px"
                 onReachBottom={() => {
                     console.log('onReachBottom')
                 }}
                 onReachTop={this.onReachTop}
+                reachTopImmidiate={true}
+                hasMore={true}
                 loading={loading}
             ></ChatList>
         )

@@ -78,7 +78,7 @@ export const mockDataList: IMessageItem[] = [
         avatar: mockFromAvatar,
         payload: {
             content:
-                '哈哈哈哈哈1哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好哈哈哈哈哈哈哈哈你好你好',
+                '你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~你好~',
         },
         time: 123,
         type: msgType.MSG_TEXT,
